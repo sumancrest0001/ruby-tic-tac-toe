@@ -1,25 +1,5 @@
 # frozen_string_literal: true
 
-class Players
-  attr_accessor :player1_array, :player2_array
-  def initialize
-    @player1_array = []
-    @player2_array = []
-  end
-
-  def store_mark
-    if @current_player == @player1
-      @player1_array.push(@mark)
-    else
-      @player2_array.push(@mark)
-    end
-  end
-
-  def change_players
-    @current_player = @current_player == @player1 ? @player2 : @player1
-  end
-end
-
 class Ui
   attr_accessor :player1, :player2, :current_player, :mark
   def display_instructions
@@ -49,9 +29,9 @@ class Ui
       puts 'Player1, which one would you like to take: X or O ?'
       @player1 = gets.chomp.upcase
 
-      break if @player1 == 'X' || @player1 == 'O'  
+      break if @player1 == 'X' || @player1 == 'O'
+
       puts 'that is not a valid input'
-      end
     end
     @player2 = @player1 == 'X' ? 'O' : 'X'
     puts "Player1, Your mark is #{@player1} and Player2, your mark is #{@player2}"
@@ -60,7 +40,7 @@ class Ui
 
   # this code gets where the user marks
   def get_mark(current_player)
-    puts "#{current_player}, Please choose a box that you what to mark"
+    puts "#{current_player}, Please choose a box that you want to mark"
     @mark = gets.chomp
     # board logic needed for this one
   end
@@ -68,7 +48,7 @@ class Ui
   def end_message
     puts '*' * 50
     puts '*' * 50
-    puts "Thank you for playing Tic-Tac-Toe".center(50, '*')
+    puts 'Thank you for playing Tic-Tac-Toe'.center(50, '*')
     puts '*' * 50
     puts '*' * 50
   end
@@ -89,13 +69,11 @@ class Ui
     puts 'do you want to play again? [y/n] ' .center(50, '*')
     @again = gets.chomp.upcase
     loop do
-      if @again != Y && again != N
-        puts 'that is not a valid answer, please type y or n ' .center(50, '*')
-        @again = gets.chomp.upcase
-      else
-        break
-      end
-      @again
+      break unless @again != Y && again != N
+
+      puts 'that is not a valid answer, please type y or n ' .center(50, '*')
+      @again = gets.chomp.upcase
     end
+    @again
   end
 end
