@@ -1,10 +1,10 @@
 class Players
-  attr_accessor :player1, :player2, :current_player, :mark, :player1_array, :player2_array
+  attr_accessor :player1_array, :player2_array
   def initialize
     @player1_array = []
     @player2_array = []
   end
-  
+
 
 
 
@@ -23,7 +23,7 @@ class Players
 end
 
 class Ui
-  
+attr_accessor :player1, :player2, :current_player, :mark
   def display_instructions
     puts "*"*50
     puts "Welcome To Our Tic-Tac-Toe Game!".center(50,"*")
@@ -41,24 +41,24 @@ class Ui
     puts "the grid, type the number of an empty space".center(46," ").center(50,"*")
     puts "that you would like to mark. Good luck!".center(46," ").center(50,"*")
     puts "*"*50
-    puts "="*50  
+    puts "="*50
     puts "*"*50
 
   end
 #this code defines each players symbol-
-  def set_players 
+  def set_players
     loop do
       puts "Player1, which one would you like to take: X or O ?"
       @player1 = gets.chomp.upcase
-      
+
       if @player1 == "X" || @player1 == "O"
         break
       else
         puts "that is not a valid input"
       end
     end
-    @player2 = player1 == "X" ? "O" : "X"
-    puts "Player1, Your mark is #{player1} and Player2, your mark is #{@player2}"
+    @player2 = @player1 == "X" ? "O" : "X"
+    puts "Player1, Your mark is #{@player1} and Player2, your mark is #{@player2}"
     @current_player = @player1
   end
 
@@ -79,19 +79,19 @@ def end_message
 end
 def winner_message(winner)
   puts "*"*50
-  puts "="*50  
+  puts "="*50
   if winner == nil
     puts "the game is a draw".center(50,"*")
   else
     puts "#{winner} wins".center(50,"*")
   end
-  puts "="*50  
+  puts "="*50
   puts "*"*50
 end
 def play_again
   puts "do you want to play again? [y/n] " .center(50,"*")
   @again=gets.chomp.upcase
-  loop do 
+  loop do
     if @again != Y && again != N
       puts "that is not a valid answer, please type y or n " .center(50,"*")
       @again=gets.chomp.upcase
@@ -104,14 +104,3 @@ end
 end
 
 end
-
-ui=Ui.new
-
-players1 = Players.new
-winner="player1"
-puts ui.display_instructions
-puts ui.end_message
-puts ui.winner_message (winner)
-puts ui.play_again
-
-
