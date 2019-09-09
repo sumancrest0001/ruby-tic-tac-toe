@@ -1,7 +1,8 @@
 # frozen_string_literal: true
+require_relative '../lib/board_players'  
 
 class Ui
-  attr_accessor :player1, :player2, :current_player, :mark
+  attr_reader :player1, :player2, :current_player, :mark
   def display_instructions
     puts '*' * 50
     puts 'Welcome To Our Tic-Tac-Toe Game!'.center(50, '*')
@@ -76,4 +77,26 @@ class Ui
     end
     @again
   end
+
+  def display_board (cells)
+   puts "   |   |   ".center(40, ' ').center(50, '*')
+   puts " #{@cells[0]} | #{@cells[1]} | #{@cells[2]} ".center(40, ' ').center(50, '*')
+   puts "----+----+----".center(40, ' ').center(50, '*')
+   puts " #{@cells[3]} | #{@cells[4]} | #{@cells[5]} ".center(40, ' ').center(50, '*')
+   puts "----+----+----".center(40, ' ').center(50, '*')
+   puts " #{@cells[6]} | #{@cells[7]} | #{@cells[8]} ".center(40, ' ').center(50, '*')
+   puts "   |   |   ".center(40, ' ').center(50, '*')
+   puts "*"*50
+   puts "*"*50
+  end
+
 end
+
+
+ui=Ui.new
+board=Board.new
+ui.display_instructions
+ui.end_message
+ui.winner_message (nil)
+# cells = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+ui.display_board (@cells)
