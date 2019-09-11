@@ -1,4 +1,7 @@
+require_relative 'board_players'
+
 class GameLogic
+  attr_reader :wining_compositions, :winner
 @wining_compositions = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]]
 def initialize
   @winner = nil
@@ -11,13 +14,15 @@ def check_winner
   elsif(@wining_compositions[i] - @player2_array).empty?
     @winner = @player_2
   end
+end
   @winner
 end
 
 def check_empty_space
-  @cell.include?(integer)
+  @cell.any?(Integer)
 end
 
 def game_end
   return true if @winner != nil || check_empty_space == false
+end
 end

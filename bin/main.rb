@@ -1,13 +1,14 @@
 # frozen_string_literal: true
-
+require_relative '../lib/game_logic'
 require_relative '../lib/board_players'
 
 class Ui
-  attr_reader :player1, :player2, :current_player, :mark
+  attr_reader :player1, :player2, :current_player, :mark, :again
 
   def intitialize
     @player1 = nil
     @player2 = nil
+    @current_player = nil
   end
 
   def display_instructions
@@ -39,17 +40,21 @@ class Ui
 
       break if @player1 == 'X' || @player1 == 'O'
 
-      puts 'that is not a valid input'
+      puts 'That is not a valid input'
     end
     @player2 = @player1 == 'X' ? 'O' : 'X'
-    puts "Player1, Your mark is #{@player1} and Player2, your mark is #{@player2}"
+    puts "Player1, Your Symbol is #{@player1} and Player2, your symbol is #{@player2}"
     @current_player = @player1
   end
 
   # this code gets where the user marks
-  def get_mark(current_player)
-    puts "#{current_player}, Please choose a box that you want to mark"
+  def get_mark
+    puts "Player, #{current_player}. Please choose a box that you want to mark"
     @mark = gets.chomp
+    while board.is_available ==false
+      puts "That cell has already been selected. Please choose new one."
+      @mark = gets.chomp
+    end
     # board logic needed for this one
   end
 
@@ -61,10 +66,10 @@ class Ui
     puts '*' * 50
   end
 
-  def winner_message(winner)
+  def winner_message
     puts '*' * 50
     puts '=' * 50
-    if winner.nil?
+    if game_logic.winner.nil?
       puts 'the game is a draw'.center(50, '*')
     else
       puts "#{winner} wins".center(50, '*')
@@ -74,10 +79,11 @@ class Ui
   end
 
   def play_again
+
     puts 'do you want to play again? [y/n] ' .center(50, '*')
     @again = gets.chomp.upcase
     loop do
-      break unless @again != Y && again != N
+      break unless @again != Y && @again != N
 
       puts 'that is not a valid answer, please type y or n ' .center(50, '*')
       @again = gets.chomp.upcase
@@ -97,11 +103,21 @@ class Ui
     puts '*' * 50
   end
 end
-
 ui = Ui.new
+players = Players.new
 board = Board.new
+game_logic = GameLogic.new
 ui.display_instructions
-ui.display_board board.cells
-ui.winner_message nil
+ui.set_players
+ui.display_board (board.cells)
+
+until game_logic.game_end
+  ui.get_mark
+  players.store_mark
+  board.update_cell
+  ui.display_board
+  game_logic.check_winner
+  players.change_players
+end
+ui.winner_message
 ui.end_message
-ui.play_again

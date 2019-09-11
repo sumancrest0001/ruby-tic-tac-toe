@@ -1,11 +1,14 @@
+require_relative '../bin/main'
 class Board
+  attr_accessor :cells
+  def initialize
   @cells = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
+  end
   def update_cell
-      @cell[@mark -1] == @current_player
+      @cells[@mark -1] == @current_player
   end
   def is_available
-    @cell[@mark-1].is_a?(integer)
+    @cells[@mark-1].is_a?(integer)
   end
 end
 
