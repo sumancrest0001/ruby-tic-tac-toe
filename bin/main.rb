@@ -1,4 +1,4 @@
-
+# frozen_string_literal: true
 class UserInterface
   attr_accessor :game
   def intitialize
@@ -27,7 +27,7 @@ class UserInterface
   end
 
   # this code defines each players symbol
-  def set_players
+  def obtain_players
     loop do
       puts 'Player1, which one would you like to take: X or O ?'
       @game.player1 = gets.chomp.upcase
@@ -42,7 +42,7 @@ class UserInterface
   end
 
   # this code gets where the user marks
-  def get_mark
+  def read_mark
     puts "Player, #{game.current_player}. Please choose a box that you want to mark"
     @game.mark = gets.chomp
     while @game.mark.available?(@game.mark)
@@ -75,7 +75,8 @@ class UserInterface
     puts 'do you want to play again? [y/n] ' .center(50, '*')
     @game.again = gets.chomp.upcase
     loop do
-      break unless @game.again != Y && @game.again != N
+      break if @game.again == Y && @game.again == N
+
       puts 'that is not a valid answer, please type y or n ' .center(50, '*')
       @game.again = gets.chomp.upcase
     end
