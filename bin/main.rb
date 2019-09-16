@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class UserInterface
   attr_accessor :game
   def intitialize
