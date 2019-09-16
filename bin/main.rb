@@ -1,14 +1,8 @@
-# frozen_string_literal: true
-require_relative '../lib/game_logic'
-require_relative '../lib/board_players'
 
-class Ui
-  attr_reader :player1, :player2, :current_player, :mark, :again
-
+class UserInterface
+  attr_accessor :game
   def intitialize
-    @player1 = nil
-    @player2 = nil
-    @current_player = nil
+    @game = GameLogic.new
   end
 
   def display_instructions
@@ -32,30 +26,29 @@ class Ui
     puts '*' * 50
   end
 
-  # this code defines each players symbol-
+  # this code defines each players symbol
   def set_players
     loop do
       puts 'Player1, which one would you like to take: X or O ?'
-      @player1 = gets.chomp.upcase
+      @game.player1 = gets.chomp.upcase
 
-      break if @player1 == 'X' || @player1 == 'O'
+      break if @game.player1 == 'X' || @game.player1 == 'O'
 
       puts 'That is not a valid input'
     end
-    @player2 = @player1 == 'X' ? 'O' : 'X'
-    puts "Player1, Your Symbol is #{@player1} and Player2, your symbol is #{@player2}"
-    @current_player = @player1
+    @game.player2 = @game.player1 == 'X' ? 'O' : 'X'
+    puts "Player1, Your Symbol is #{game.player1} and Player2, your symbol is #{game.player2}"
+    @game.current_player = @game.player1
   end
 
   # this code gets where the user marks
   def get_mark
-    puts "Player, #{current_player}. Please choose a box that you want to mark"
-    @mark = gets.chomp
-    while board.is_available ==false
+    puts "Player, #{game.current_player}. Please choose a box that you want to mark"
+    @game.mark = gets.chomp
+    while @game.mark.available?(@game.mark)
       puts "That cell has already been selected. Please choose new one."
-      @mark = gets.chomp
+      @game.mark = gets.chomp
     end
-    # board logic needed for this one
   end
 
   def end_message
@@ -69,29 +62,27 @@ class Ui
   def winner_message
     puts '*' * 50
     puts '=' * 50
-    if game_logic.winner.nil?
+    if @game.winner.nil?
       puts 'the game is a draw'.center(50, '*')
     else
-      puts "#{winner} wins".center(50, '*')
+      puts "#{@game.winner} wins".center(50, '*')
     end
     puts '=' * 50
     puts '*' * 50
   end
 
   def play_again
-
     puts 'do you want to play again? [y/n] ' .center(50, '*')
-    @again = gets.chomp.upcase
+    @game.again = gets.chomp.upcase
     loop do
-      break unless @again != Y && @again != N
-
+      break unless @game.again != Y && @game.again != N
       puts 'that is not a valid answer, please type y or n ' .center(50, '*')
-      @again = gets.chomp.upcase
+      @game.again = gets.chomp.upcase
     end
-    @again
   end
 
-  def display_board(cells)
+  def display_board
+    cells = @game.cells
     puts '   |   |   '.center(40, ' ').center(50, '*')
     puts " #{cells[0]} | #{cells[1]} | #{cells[2]} ".center(40, ' ').center(50, '*')
     puts '----+----+----'.center(40, ' ').center(50, '*')
@@ -103,21 +94,3 @@ class Ui
     puts '*' * 50
   end
 end
-ui = Ui.new
-players = Players.new
-board = Board.new
-game_logic = GameLogic.new
-ui.display_instructions
-ui.set_players
-ui.display_board (board.cells)
-
-until game_logic.game_end
-  ui.get_mark
-  players.store_mark
-  board.update_cell
-  ui.display_board
-  game_logic.check_winner
-  players.change_players
-end
-ui.winner_message
-ui.end_message

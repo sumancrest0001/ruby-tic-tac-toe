@@ -1,28 +1,12 @@
-require_relative 'board_players'
 
 class GameLogic
-  attr_reader :wining_compositions, :winner
-@wining_compositions = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]]
-def initialize
-  @winner = nil
-end
-
-def check_winner
-  for i in 0...8
-  if (@wining_compositions[i] - @player1_array).empty?
-     @winner = @player_1
-  elsif(@wining_compositions[i] - @player2_array).empty?
-    @winner = @player_2
+  attr_reader :winner, :cells, :player1_array, :player2_array, :current_player
+  attr_writer :player1, :player2, :mark, :again
+  @@wining_compositions = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]]
+  def initialize
+    @winner = nil
+    @player1_array = []
+    @player2_array = []
+    @cells = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   end
-end
-  @winner
-end
-
-def check_empty_space
-  @cell.any?(Integer)
-end
-
-def game_end
-  return true if @winner != nil || check_empty_space == false
-end
 end
