@@ -47,7 +47,7 @@ class UserInterface
     puts "Player, #{game.current_player}. Please choose a box that you want to mark"
     @game.mark = gets.chomp
     while @game.mark.available?(@game.mark)
-      puts "That cell has already been selected. Please choose new one."
+      puts 'That cell has already been selected. Please choose new one.'
       @game.mark = gets.chomp
     end
   end
