@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
+require_relative '../lib/game_logic'
 class UserInterface
   attr_accessor :game
-  def intitialize
+  attr_writer :again
+  def initialize
     @game = GameLogic.new
   end
-
+  def display
+    @game.wining_compositions
+  end
   def display_instructions
     puts '*' * 50
     puts 'Welcome To Our Tic-Tac-Toe Game!'.center(50, '*')
@@ -27,8 +31,8 @@ class UserInterface
     puts '*' * 50
   end
 
-  # this code defines each players symbol
-  def obtain_players
+  # this code defines each players symbol-
+  def set_players
     loop do
       puts 'Player1, which one would you like to take: X or O ?'
       @game.player1 = gets.chomp.upcase
@@ -43,12 +47,11 @@ class UserInterface
   end
 
   # this code gets where the user marks
-  def read_mark
-    puts "Player, #{game.current_player}. Please choose a box that you want to mark"
-    @game.mark = gets.chomp
-    while @game.mark.available?(@game.mark)
-      puts 'That cell has already been selected. Please choose new one.'
-      @game.mark = gets.chomp
+  def get_mark
+    loop do
+      puts "Player, #{game.current_player}. Please choose a box that you want to mark"
+      @game.mark = gets.chomp.to_i
+      break if @game.cells.include?@game.mark
     end
   end
 
@@ -64,23 +67,24 @@ class UserInterface
     puts '*' * 50
     puts '=' * 50
     if @game.winner.nil?
-      puts 'the game is a draw'.center(50, '*')
+      puts 'The game is draw'.center(50, '*')
     else
-      puts "#{@game.winner} wins".center(50, '*')
+      puts "Congratulation,#{game.winner}. You win the game".center(50, '*')
     end
     puts '=' * 50
     puts '*' * 50
   end
 
   def play_again
-    puts 'do you want to play again? [y/n] ' .center(50, '*')
-    @game.again = gets.chomp.upcase
+    puts 'Do you want to play again? [y/n] ' .center(50, '*')
+    @again = gets.chomp.upcase
     loop do
-      break if @game.again == Y && @game.again == N
+      break unless @again != "Y" && @again != "N"
 
-      puts 'that is not a valid answer, please type y or n ' .center(50, '*')
-      @game.again = gets.chomp.upcase
+      puts 'That is not a valid answer, please type y or n ' .center(50, '*')
+      @again = gets.chomp.upcase
     end
+    @again
   end
 
   def display_board
@@ -96,3 +100,10 @@ class UserInterface
     puts '*' * 50
   end
 end
+first = UserInterface.new
+first.display_instructions
+first.set_players
+first.get_mark
+first. end_message
+first.display_board
+first.play_again
