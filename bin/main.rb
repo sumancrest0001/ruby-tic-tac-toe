@@ -53,7 +53,7 @@ class UserInterface
     loop do
       puts "Player, #{game.current_player}. Please choose a box that you want to mark"
       @game.mark = gets.chomp.to_i
-      break if @game.cells.include? (@game.mark)
+      break if @game.cells.include? @game.mark
     end
   end
 
