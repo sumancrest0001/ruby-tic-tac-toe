@@ -7,9 +7,11 @@ class UserInterface
   def initialize
     @game = GameLogic.new
   end
+
   def display
     @game.wining_compositions
   end
+
   def display_instructions
     puts '*' * 50
     puts 'Welcome To Our Tic-Tac-Toe Game!'.center(50, '*')
@@ -47,11 +49,11 @@ class UserInterface
   end
 
   # this code gets where the user marks
-  def get_mark
+  def obtain_mark
     loop do
       puts "Player, #{game.current_player}. Please choose a box that you want to mark"
       @game.mark = gets.chomp.to_i
-      break if @game.cells.include?@game.mark
+      break if @game.cells.include? (@game.mark)
     end
   end
 
@@ -79,7 +81,7 @@ class UserInterface
     puts 'Do you want to play again? [y/n] ' .center(50, '*')
     @again = gets.chomp.upcase
     loop do
-      break unless @again != "Y" && @again != "N"
+      break unless @again != 'Y' && @again != 'N'
 
       puts 'That is not a valid answer, please type y or n ' .center(50, '*')
       @again = gets.chomp.upcase
