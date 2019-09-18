@@ -101,11 +101,21 @@ class UserInterface
     puts '*' * 50
     puts '*' * 50
   end
+  def play_game
+    display_instructions
+    display_board
+    set_players
+    until @game.game_end
+      obtain_mark
+      @game.store_mark
+      @game.update_cell
+      display_board
+      @game.check_winner
+      @game.change_players
+    end
+    winner_message
+    play_again == "Y" ? UserInterface.new.play_game : end_message
+
+  end
 end
-first = UserInterface.new
-first.display_instructions
-first.set_players
-first.get_mark
-first. end_message
-first.display_board
-first.play_again
+UserInterface.new.play_game
