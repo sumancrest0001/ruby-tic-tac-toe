@@ -101,6 +101,7 @@ class UserInterface
     puts '*' * 50
     puts '*' * 50
   end
+  
   def play_game
     display_instructions
     display_board
@@ -114,8 +115,7 @@ class UserInterface
       @game.change_players
     end
     winner_message
-    play_again == "Y" ? UserInterface.new.play_game : end_message
-
+    play_again == 'Y' ? UserInterface.new.play_game : end_message
   end
 end
 UserInterface.new.play_game
