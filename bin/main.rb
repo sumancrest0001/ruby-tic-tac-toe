@@ -101,8 +101,7 @@ class UserInterface
     puts '*' * 50
     puts '*' * 50
   end
-  
-  #method to run the game
+
   def play_game
     display_instructions
     display_board
