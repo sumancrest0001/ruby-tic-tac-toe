@@ -51,7 +51,7 @@ class UserInterface
   # this code gets where the user marks
   def obtain_mark
     loop do
-      puts "Player, #{game.current_player}. Please choose a box that you want to mark"
+      puts 'Player. Please choose a box that you want to mark'
       @game.mark = gets.chomp.to_i
       break if @game.cells.include? @game.mark
     end
@@ -68,11 +68,7 @@ class UserInterface
   def winner_message
     puts '*' * 50
     puts '=' * 50
-    if @game.winner.nil?
-      puts 'The game is draw'.center(50, '*')
-    else
-      puts "Congratulation,#{game.winner}. You win the game".center(50, '*')
-    end
+    puts 'Congratulation,X. You win the game'.center(50, '*')
     puts '=' * 50
     puts '*' * 50
   end
@@ -102,20 +98,29 @@ class UserInterface
     puts '*' * 50
   end
 
-  def play_game
-    display_instructions
-    display_board
-    set_players
-    until @game.game_end
-      obtain_mark
-      @game.store_mark
-      @game.update_cell
-      display_board
-      @game.check_winner
-      @game.change_players
-    end
-    winner_message
-    play_again == 'Y' ? UserInterface.new.play_game : end_message
+  def player_turn
+    puts "#{game.player1}, its your turn to select cell"
+  end
+
+  def draw_game
+    puts 'Unfortunately, this game is draw'
+  end
+
+  def invalid_move
+    puts 'This is an invalid move please select new one.'
   end
 end
-UserInterface.new.play_game
+r = UserInterface.new
+play_game = true
+win = false
+r.display_instructions
+r.display_board
+r.set_players
+while play_game
+  r.obtain_mark
+  r.invalid_move
+  r.display_board
+  r.player_turn
+  win ? r.winner_message : r.draw_game
+end
+r.end_message
