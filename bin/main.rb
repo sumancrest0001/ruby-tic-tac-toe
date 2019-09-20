@@ -45,11 +45,11 @@ class UserInterface
   end
 
   # this code gets where the user marks
-  def get_mark
+  def choose_mark
     loop do
       puts "Player, #{game.current_player}. Please choose a box that you want to mark"
       @game.mark = gets.chomp.to_i
-      break if @game.cells.include?@game.mark
+      break if @game.cells.include? @game.mark
     end
   end
 
@@ -77,7 +77,7 @@ class UserInterface
     puts 'Do you want to play again? [y/n] ' .center(50, '*')
     @again = gets.chomp.upcase
     loop do
-      break unless @again != "Y" && @again != "N"
+      break unless @again != 'Y' && @again != 'N'
 
       puts 'That is not a valid answer, please type y or n ' .center(50, '*')
       @again = gets.chomp.upcase
@@ -100,12 +100,13 @@ class UserInterface
     puts '*' * 50
     puts "\n"
   end
+
   def play_game
     display_instructions
     display_board
     set_players
     until @game.game_end
-      get_mark
+      choose_mark
       @game.store_mark
       @game.update_cell
       display_board
@@ -113,8 +114,7 @@ class UserInterface
       @game.change_players
     end
     winner_message
-    play_again == "Y" ? UserInterface.new.play_game : end_message
-
+    play_again == 'Y' ? UserInterface.new.play_game : end_message
   end
 end
- UserInterface.new.play_game
+UserInterface.new.play_game
