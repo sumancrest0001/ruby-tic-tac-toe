@@ -4,7 +4,7 @@ class GameLogic
   attr_reader :player1_array, :player2_array, :wining_compositions
   attr_accessor :winner, :cells, :player1, :player2, :current_player, :mark
   def initialize
-    @wining_compositions = [[1, 2, 3], [4, 5, 6],[7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
+    @wining_compositions = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
     @winner = nil
     @player1 = nil
     @player2 = nil
@@ -17,7 +17,7 @@ class GameLogic
   def check_winner
     for i in 0...8
       if (@wining_compositions[i] - @player1_array).empty?
-         @winner = @player1
+        @winner = @player1
       elsif (@wining_compositions[i] - @player2_array).empty?
         @winner = @player2
       end
@@ -46,6 +46,6 @@ class GameLogic
   end
 
   def update_cell
-      @cells[@mark - 1] = @current_player
+    @cells[@mark - 1] = @current_player
   end
 end
