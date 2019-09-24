@@ -98,8 +98,8 @@ class UserInterface
     puts "Player, #{game.current_player}. Please choose a box that you want to mark"
     @game.mark = gets.chomp.to_i
     loop do
-
       break if @game.cells.include? @game.mark
+      
       if @game.mark > 9 || @game.mark < 1
         puts 'This is an invalid input Please select one of the rremaining cells number'
       elsif (@game.cells.include? @game.mark) == false
