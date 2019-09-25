@@ -33,7 +33,7 @@ class Players
   def update_cell(cell)
     cell[@mark - 1] = @current_player
   end
-  
+
   def check_invalid_input
     @mark > 9 || @mark < 1
   end

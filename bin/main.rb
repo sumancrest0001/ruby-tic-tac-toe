@@ -9,6 +9,7 @@ class UserInterface
     @player = Players.new
     @game = GameLogic.new
   end
+  
   def display_instructions
     puts '*' * 50
     puts 'Welcome To Our Tic-Tac-Toe Game!'.center(50, '*')
