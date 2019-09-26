@@ -4,7 +4,7 @@
 ## LANGUAGE USED
 ### Ruby
 
-##GETTING STARTED
+## GETTING STARTED
 ### Follow the following instruction to install the game in you local machine.
 
 1. Open the git from the directory in which you want to install the game.
