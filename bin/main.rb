@@ -113,6 +113,7 @@ class UserInterface
 
   def play_game
     display_instructions
+    display_board
     set_players
     until @game.game_end(@player.winner)
       choose_mark
