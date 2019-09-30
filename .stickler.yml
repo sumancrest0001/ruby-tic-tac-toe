@@ -6,7 +6,7 @@ files:
   ignore:
     - "bin/*"
     - "db/*"
-    - "config/*"++++++++++++++++++++++++++++++++++++
+    - "config/*"
     - "Guardfile"
     - "Rakefile"
     - "spec/spec_helper.rb"
