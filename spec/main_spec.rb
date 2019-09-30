@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 
 require_relative '../lib/gamelogic'
 require_relative '../lib/players'
 RSpec.describe GameLogic do
-  subject(:game){ GameLogic.new }
+  subject(:game) { GameLogic.new }
 
   describe '#check_empty_space method' do
     context 'when all the cells are available for marking' do
@@ -14,7 +15,7 @@ RSpec.describe GameLogic do
 
     context 'when all the cells are already marked' do
       it 'will return false' do
-        game.instance_variable_set('@cells', ['X', 'O', 'X', 'X', 'O', 'O','X'])
+        game.instance_variable_set('@cells', %w[X, O, X, X, O, O, X])
         expect(game.check_empty_space). to be false
       end
     end
@@ -23,7 +24,7 @@ RSpec.describe GameLogic do
   describe '#game_end method' do
     context 'tests various conditions of game' do
       it 'will give true' do
-          allow(game).to receive(:check_empty_space).and_return(true)
+        allow(game).to receive(:check_empty_space).and_return(true)
         expect(game.game_end(nil)).to be nil
       end
     end
@@ -75,7 +76,7 @@ RSpec.describe Players do
     end
   end
 
-  describe'#check_winner method' do
+  describe '#check_winner method' do
     compositions = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
     context 'when there are empty arrays of marks both player' do
       it 'will return nil' do
