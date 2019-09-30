@@ -15,7 +15,7 @@ RSpec.describe GameLogic do
 
     context 'when all the cells are already marked' do
       it 'will return false' do
-        game.instance_variable_set('@cells', %w[X, O, X, X, O, O, X])
+        game.instance_variable_set('@cells', %w[X O X X O O X])
         expect(game.check_empty_space). to be false
       end
     end
